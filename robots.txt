@@ -1,0 +1,6 @@
+# Unblocked Games G+
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: https://unblockgameplus.github.io/sitemap.xml

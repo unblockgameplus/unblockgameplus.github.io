@@ -1,0 +1,13 @@
+{
+  "name": "unblocked-games-gplus",
+  "version": "2.0.0",
+  "private": true,
+  "description": "800+ unblocked browser games: 26 original local fallbacks plus a 786+ third-party catalogue, with SEO-first static pages.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "images": "python scripts/optimize-images.py",
+    "serve": "python -m http.server 8000"
+  },
+  "license": "SEE LICENSE IN LICENSES.md"
+}
