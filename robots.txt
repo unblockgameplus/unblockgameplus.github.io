@@ -1,0 +1,6 @@
+User-Agent: *
+Allow: /
+Disallow: /embed/
+Disallow: /my-games/
+
+Sitemap: https://unblockgameplus.github.io/sitemap.xml

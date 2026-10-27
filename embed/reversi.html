@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Reversi</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/games.css">
+  <style>
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      overflow: hidden !important;
+      background: #000 !important;
+    }
+    .game-shell {
+      margin: 0 auto !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      border: 0 !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .game-stage {
+      flex: 1 1 auto !important;
+      width: 100% !important;
+      height: 100% !important;
+      max-height: 100% !important;
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .game-area {
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    canvas {
+      max-width: 100% !important;
+      max-height: 100% !important;
+    }
+  </style>
+</head>
+<body class="game-detail" data-game="reversi" data-game-name="Reversi" data-game-tagline="Flip the board, control the corners, own the most discs." data-game-controls="Click / tap · Mode buttons · Difficulty menu · R">
+  <section class="game-shell" id="gameShell" aria-label="Reversi game">
+      <div class="game-toolbar">
+        <div class="hud" aria-live="polite">
+          <div class="hud-item"><span class="hud-label" id="scoreLabel">Score</span><span class="hud-value" id="scoreValue">0</span></div>
+          <div class="hud-item"><span class="hud-label" id="bestLabel">Best</span><span class="hud-value" id="bestValue">—</span></div>
+        </div>
+        <div class="game-actions">
+          <button class="game-btn btn-restart" id="btnRestart" type="button">Restart</button>
+          <button class="game-btn btn-pause" id="btnPause" type="button" aria-pressed="false" disabled>Pause</button>
+          <button class="game-btn btn-sound" id="btnSound" type="button" aria-pressed="true">Sound on</button>
+          <button class="game-btn btn-fullscreen" id="btnFullscreen" type="button">Fullscreen</button>
+          <button class="game-btn btn-share" id="shareGame" type="button">Share</button>
+        </div>
+      </div>
+      <div class="game-stage" id="gameStage" tabindex="0" aria-label="Play Reversi">
+        <div class="game-area" id="gameArea"><canvas id="gameCanvas"></canvas></div>
+        <div class="touch-controls" id="touchControls"></div>
+        <div class="game-overlay is-visible" id="gameOverlay" data-tone="start">
+          <div class="overlay-card">
+            <span class="overlay-kicker">Free HTML5 game</span>
+            <h2 id="overlayTitle">Reversi</h2>
+            <p id="overlayText">Click play, then use the controls below. Your best score is saved on this device.</p>
+            <button class="btn btn-primary" id="overlayBtn" type="button">Play now</button>
+            <p class="overlay-hint" id="overlayHint">P pause · R restart · F fullscreen · M sound</p>
+          </div>
+        </div>
+      </div>
+      <div class="game-status">
+        <span id="statusText">Ready to play</span>
+        <span class="hint-keys"><kbd>P</kbd> pause <kbd>R</kbd> restart <kbd>F</kbd> fullscreen</span>
+      </div>
+    </section>
+  <script type="module" src="/assets/js/game-page.js"></script>
+  <script>
+    (function() {
+      let attempts = 0;
+      function autoStart() {
+        attempts++;
+        const btn = document.getElementById('overlayBtn');
+        if (btn && btn.textContent && btn.textContent.toLowerCase().includes('play')) {
+          btn.click();
+        } else if (attempts < 60) {
+          setTimeout(autoStart, 50);
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', autoStart);
+      } else {
+        autoStart();
+      }
+    })();
+    try {
+      const slug = "reversi";
+      const raw = localStorage.getItem('gplus:recent');
+      const list = raw ? JSON.parse(raw) : [];
+      const updated = [slug, ...list.filter(function(s){ return s !== slug; })].slice(0, 24);
+      localStorage.setItem('gplus:recent', JSON.stringify(updated));
+      window.dispatchEvent(new CustomEvent('gplus:collections'));
+    } catch (e) {}
+  </script>
+</body>
+</html>
